@@ -7,31 +7,109 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0%;
+  padding: 0%;
 
   --primaryColor : #0C4D9C;
-  --lightColor : #fffaee;
+  --lightColor : #ffffff;
   --darkcolor: #000000;
 }
 
+
 body{
-  background-color: var(--lightColor) !important;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--lightColor);
 }
 
-.login-form{
-  color: var(--darkcolor);
-  text-align: center;
+/* login page */
+.login-body {
+  background-color: var(--primaryColor);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  width: 300px;
-  height: fit-content;
-  margin: 150px 0 0 50%;
-  transform: translateX(-50%);
-  border: #000000 solid 1px;
-  border-radius: 20px;
-  padding: 30px;
-  padding-bottom: 50px;
+}
+  
+.login-form {
+    color: var(--darkcolor);
+    background-color: var(--lightColor);
+    text-align: left;
+    width: 400px;
+    padding: 40px;
+    border: 1px solid var(--darkcolor);
+    border-radius: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-form h1{
+  font-size: 50px;
+  text-align: center;
+  color: var(--darkcolor);
 }
 
 .login-form h1 span{
   color: var(--primaryColor);
 }
 
+.login-form .login-control{
+  width: 90%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--darkcolor);
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  color: rgba(0, 0, 0, 0.9);
+  margin-bottom: 15px;
+}
+
+#loginbtn{
+  background-color: var(--primaryColor);
+  color: var(--lightColor);
+  width: 100%;
+}
+
+#loginbtn:hover{
+  background-color: var(--lightColor);
+  color: var(--darkcolor);
+}
+
+.login-form p{
+  color: var(--darkcolor);
+  font-size: small;
+  margin: 5px 0;
+}
+
+.login-form .text{
+  text-align: left;
+  width: 100%;
+}
+
+/* dashboard */
+.sidebar{
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background-color: var(--primaryColor);
+  display: flex;
+  flex-direction: column;
+  color: var(--lightColor);
+  text-align: center;
+}
+
+.sidebar h1 span{
+  color: var(--darkcolor);
+}
+
+.sidebar ul li{
+  list-style: none;
+}
