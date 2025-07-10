@@ -13,7 +13,7 @@ function AppRouter() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route index element={<Login />} />
+                <Route index element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/workers" element={<Workers />} />
