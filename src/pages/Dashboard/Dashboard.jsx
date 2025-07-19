@@ -63,7 +63,7 @@ function Dashboard() {
         </ul>
       </div>
     </div><div class="dashboard-container">
-        <header>
+        <header className="dashhead">
           <h1>Dashboard</h1>
         </header>
 
