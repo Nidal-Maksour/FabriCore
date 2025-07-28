@@ -11,7 +11,7 @@ function Login() {
 
     try {
       // Send POST request to backend with username and password
-      const response = await fetch("http://localhost:8000/src/backend/api/login.php", {
+      const response = await fetch("http://localhost:8000/Backend/api/login.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
