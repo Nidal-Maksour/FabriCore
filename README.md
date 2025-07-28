@@ -27,7 +27,7 @@ Factory Management System
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/itsmohamedmousa/GradPath.git
+git clone https://github.com/Nidal-Maksour/FabriCore.git
 ```
 
 ---
