@@ -36,7 +36,7 @@ git clone https://github.com/Nidal-Maksour/FabriCore.git
 
 ```bash
 # 2. Navigate into the backend directory
-cd GradPath/Backend
+cd FabriCore/Backend
 
 # 3. Install PHP dependencies
 composer install
@@ -48,13 +48,13 @@ sudo mysql -u root
 Then run this inside the MySQL shell:
 
 ```bash
-CREATE DATABASE GradPath;
+CREATE DATABASE FabriCore;
 EXIT;
 ```
 
 ```bash
 # 5. Import the sql dump file
-sudo mysql -u root GradPath < GradPath.sql
+sudo mysql -u root GradPath < FabriCore.sql
 ```
 
 ---
@@ -90,10 +90,10 @@ npm run dev
 Create .env files inside Frontend and Backend directories and add the following:
 
 ```bash
-### GradPath/Backend/.env
+### FabriCore/Backend/.env
 
 DB_HOST=127.0.0.1
-DB_NAME=GradPath
+DB_NAME=FabriCore
 # Use your database's username and password
 DB_USER=root
 DB_PASSWORD=
