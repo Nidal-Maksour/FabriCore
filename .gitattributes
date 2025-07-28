@@ -1,21 +1,24 @@
-# Normalize line endings
-* text=auto
+# Force all text files to use LF (Unix style line endings)
+* text=auto eol=lf
 
-# JavaScript/TypeScript files
-*.js text eol=lf
-*.jsx text eol=lf
-*.ts text eol=lf
+# Code files
+*.js   text eol=lf
+*.jsx  text eol=lf
+*.ts   text eol=lf
+*.tsx  text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.html text eol=lf
+*.css  text eol=lf
 
-# Lock files
+# Lock files (optional merge strategy)
 package-lock.json merge=union
-yarn.lock merge=union
+yarn.lock         merge=union
 
-# Binary files
-*.png binary
-*.jpg binary
-*.gif binary
-*.zip binary
-*.pdf binary
-
-# Markdown files
-*.md text eol=lf
+# Binary files (no line ending handling)
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.pdf  binary
+*.zip  binary
