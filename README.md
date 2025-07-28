@@ -54,7 +54,7 @@ EXIT;
 
 ```bash
 # 5. Import the sql dump file
-sudo mysql -u root GradPath < FabriCore.sql
+sudo mysql -u root FabriCore < FabriCore.sql
 ```
 
 ---
