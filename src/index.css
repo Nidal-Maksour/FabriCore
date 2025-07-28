@@ -197,6 +197,12 @@ header h1 {
   color: var(--primaryColor);
   font-size: 28px;
   margin-bottom: 20px;
+  background-color: var(--lightColor);
+  border: 2px solid var(--grayColor);
+  border-radius: 10px;
+  padding-left: 30px;
+  padding-top: 10px;
+  height: 60px;
 }
 
 .summary {
