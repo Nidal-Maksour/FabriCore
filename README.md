@@ -13,7 +13,7 @@ Node.js >= 18 – required for React
 MySQL Server – for database management
 🛠️ Installation
 # 1. Clone the repository
-git clone https://github.com/itsmohamedmousa/GradPath.git
+git clone git@github.com:Nidal-Maksour/FabriCore.git
 📂 Backend Setup (PHP + MySQL)
 # 2. Navigate into the backend directory
 cd GradPath/Backend
