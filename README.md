@@ -1,12 +1,67 @@
-# React + Vite
+FabriCore
+Factory Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Features
+..
+..
+..
+📋 Requirements
+Git – for cloning the repository
+PHP >= 8.0 – backend runtime
+Composer – PHP package manager
+Node.js >= 18 – required for React
+MySQL Server – for database management
+🛠️ Installation
+# 1. Clone the repository
+git clone https://github.com/itsmohamedmousa/GradPath.git
+📂 Backend Setup (PHP + MySQL)
+# 2. Navigate into the backend directory
+cd GradPath/Backend
 
-Currently, two official plugins are available:
+# 3. Install PHP dependencies
+composer install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 4. Create the database in your mysql server
+sudo mysql -u root
+Then run this inside the MySQL shell:
 
-## Expanding the ESLint configuration
+CREATE DATABASE GradPath;
+EXIT;
+# 5. Import the sql dump file
+sudo mysql -u root GradPath < GradPath.sql
+🔙 Run the Backend Server
+# 6. Run the PHP server
+php -S localhost:8000
+💻 Frontend Setup (React)
+In a separate terminal:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 7. Navigate to the frontend directory
+cd ../Frontend
+
+# 8. Install frontend dependencies
+npm install
+
+# 9. Start the REACT development server
+npm run dev
+🔐 Create Environment Files
+Create .env files inside Frontend and Backend directories and add the following:
+
+### GradPath/Backend/.env
+
+DB_HOST=127.0.0.1
+DB_NAME=GradPath
+# Use your database's username and password
+DB_USER=root
+DB_PASSWORD=
+
+JWT_SECRET=YourSecretKey
+# Edit to change login session's expiry date
+JWT_EXPIRES_IN=3600
+
+# Server Configuration
+FRONTEND_URL=http://localhost:5173
+### GradPath/Frontend/.env
+
+VITE_API_URL=http://localhost:8000/api
+⚠️ Disclaimer
+The project will not work without the environment files
