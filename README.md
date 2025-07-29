@@ -6,10 +6,11 @@ Factory Management System
 
 ## 🚀 Features
 
--
--
--
--
+- Workers, Machines, Deliveries, and Production tracking
+- Inventory management 
+- Generating Reports
+- Appointment calendar and reminders
+- Notes and Upcoming tasks
 
 ---
 
