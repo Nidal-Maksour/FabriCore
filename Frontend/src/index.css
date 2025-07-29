@@ -10,15 +10,14 @@
   margin: 0%;
   padding: 0%;
 
-  --primaryColor : #0C4D9C;
-  --lightColor : #ffffff;
-  --grayColor : #F5F5F5;
+  --primaryColor: #0c4d9c;
+  --lightColor: #ffffff;
+  --grayColor: #f5f5f5;
   --darkcolor: #000000;
   --hoverColor: #e0e0e0;
 }
 
-
-body{
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -35,33 +34,33 @@ body{
   justify-content: center;
   align-items: center;
 }
-  
+
 .login-form {
-    color: var(--darkcolor);
-    background-color: var(--lightColor);
-    text-align: left;
-    width: 400px;
-    padding: 40px;
-    border: 1px solid var(--lightColor);
-    border-radius: 20px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  color: var(--darkcolor);
+  background-color: var(--lightColor);
+  text-align: left;
+  width: 400px;
+  padding: 40px;
+  border: 1px solid var(--lightColor);
+  border-radius: 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.login-form h1{
+.login-form h1 {
   font-size: 50px;
   text-align: center;
   color: var(--darkcolor);
 }
 
-.login-form h1 span{
+.login-form h1 span {
   color: var(--primaryColor);
 }
 
-.login-form .login-control{
+.login-form .login-control {
   width: 90%;
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid var(--darkcolor);
@@ -74,25 +73,25 @@ body{
   margin-bottom: 15px;
 }
 
-#loginbtn{
+#loginbtn {
   background-color: var(--primaryColor);
   color: var(--lightColor);
   width: 100%;
 }
 
-#loginbtn:hover{
+#loginbtn:hover {
   background-color: var(--lightColor);
   color: var(--darkcolor);
   transition: background-color 0.3s ease;
 }
 
-.login-form p{
+.login-form p {
   color: var(--darkcolor);
   font-size: small;
   margin: 5px 0;
 }
 
-.login-form .text{
+.login-form .text {
   text-align: left;
   width: 100%;
 }
@@ -164,7 +163,9 @@ body{
   padding: 14px 20px;
   width: 100%;
   font-size: 18px;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   border-left: 4px solid transparent;
   font-weight: 500;
   width: 206px;
@@ -188,7 +189,7 @@ body{
 
 /* Dashboard page */
 .dashboard-container {
-  margin-left: 260px; 
+  margin-left: 260px;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -216,7 +217,7 @@ header h1 {
   background-color: var(--lightColor);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   flex: 1;
   min-width: 200px;
   text-align: center;
@@ -244,7 +245,7 @@ header h1 {
   background-color: var(--lightColor);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   flex: 1;
   min-width: 300px;
 }

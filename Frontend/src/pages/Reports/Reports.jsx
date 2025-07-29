@@ -1,7 +1,5 @@
 function Reports() {
-    return ( 
-        <div></div>
-    );
+  return <div></div>;
 }
 
 export default Reports;

@@ -1,13 +1,10 @@
-import { useState } from 'react'
-import AppRouter from "./Root/Router";
-
+import { useState } from 'react';
+import AppRouter from './Root/Router';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
-  return (
-   <AppRouter />
-  )
+  return <AppRouter />;
 }
 
 export default App;

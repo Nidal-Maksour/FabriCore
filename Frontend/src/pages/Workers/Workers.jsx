@@ -1,7 +1,5 @@
 function Workers() {
-    return (  
-        <div></div>
-    );
+  return <div></div>;
 }
 
 export default Workers;

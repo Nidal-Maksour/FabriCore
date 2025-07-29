@@ -6,10 +6,10 @@ Factory Management System
 
 ## 🚀 Features
 
-- 
 -
-- 
-- 
+-
+-
+-
 
 ---
 

@@ -1,23 +1,26 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
     try {
       // Send POST request to backend with username and password
-      const response = await fetch("http://localhost:8000/Backend/api/login.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch(
+        'http://localhost:8000/Backend/api/login.php',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       // Read response as text first
       const text = await response.text();
@@ -31,18 +34,17 @@ function Login() {
           window.location.href = data.redirect;
         } else {
           // Show error message returned by backend
-          setError(data.message || "Invalid credentials.");
+          setError(data.message || 'Invalid credentials.');
         }
       } catch (jsonError) {
         // JSON parsing error, probably server sent invalid response
-        console.error("Invalid JSON:", text);
-        setError("Server returned invalid response.");
+        console.error('Invalid JSON:', text);
+        setError('Server returned invalid response.');
       }
-
     } catch (err) {
       // Network or other fetch errors
-      console.error("Login error:", err);
-      setError("Could not connect to server.");
+      console.error('Login error:', err);
+      setError('Could not connect to server.');
     }
   };
 
@@ -54,7 +56,9 @@ function Login() {
             Fabri<span>Core</span>
           </h1>
 
-          <label htmlFor="username" className="text">Email or ID</label>
+          <label htmlFor="username" className="text">
+            Email or ID
+          </label>
           <input
             type="text"
             id="manager_id"
@@ -65,7 +69,9 @@ function Login() {
             onChange={(e) => setUsername(e.target.value)}
           />
 
-          <label htmlFor="password" className="text">Password</label>
+          <label htmlFor="password" className="text">
+            Password
+          </label>
           <input
             type="password"
             id="password"
@@ -81,7 +87,11 @@ function Login() {
           </button>
 
           {/* Display error message if any */}
-          {error && <p className="text" style={{ color: "red" }}>{error}</p>}
+          {error && (
+            <p className="text" style={{ color: 'red' }}>
+              {error}
+            </p>
+          )}
 
           <p className="text">
             Forget password? <a href="#">Click here</a>
@@ -96,4 +106,3 @@ function Login() {
 }
 
 export default Login;
-

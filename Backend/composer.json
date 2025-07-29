@@ -1,0 +1,15 @@
+{
+    "name": "fabricore/backend",
+    "autoload": {
+        "psr-4": {
+            "Fabricore\\Backend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nidal Maksour",
+            "email": "nidalymaksour.n@gmail.com"
+        }
+    ],
+    "require": {}
+}
