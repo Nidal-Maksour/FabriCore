@@ -304,119 +304,149 @@ body {
 }
 
 /* Workers page */
-.workers-page {
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 24px;
-  background: var(--lightColor);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.workers-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--grayColor);
+  color: var(--darkcolor);
+  font-family: inherit;
 }
 
-.workers-page h1 {
+.workers-wrapper h1 {
   color: var(--primaryColor);
+  font-size: 28px;
   text-align: center;
-  font-size: 32px;
-  margin-bottom: 30px;
+  margin-bottom: 0;
+  background-color: var(--lightColor);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
-.worker-form {
-  margin-bottom: 40px;
+h1 span {
+  color: var(--darkcolor);
+}
+
+.workers-wrapper-middle {
+  display: flex;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.stats-container {
+  width: 30%;
+}
+
+.stat-box {
+  background-color: var(--lightColor);
+  border-left: 5px solid var(--primaryColor);
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  height: 16.7%;
+}
+
+.stat-box h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--primaryColor);
+}
+
+.stat-box p {
+  margin: 4px 0 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.form-box {
+  width: 70%;
+  height: 45%;
+  background-color: var(--lightColor);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 18px;
-  margin-bottom: 20px;
-}
-
-input,
-select {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #fafafa;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: var(--primaryColor);
-  box-shadow: 0 0 0 2px rgba(12, 77, 156, 0.2);
-}
-
-.form-actions {
-  display: flex;
-  flex-wrap: wrap;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
-  justify-content: flex-end;
 }
 
-.worker-form button {
-  padding: 10px 20px;
+.form-grid input,
+.form-grid select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-grid button {
+  grid-column: span 2;
+  padding: 10px;
   background-color: var(--primaryColor);
   color: var(--lightColor);
   border: none;
   border-radius: 6px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  font-size: 0.95rem;
+  transition: background-color 0.3s;
 }
 
-.worker-form button:hover {
+.form-grid button:hover {
   background-color: var(--hoverColor);
   color: var(--darkcolor);
 }
 
-.workers-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  font-size: 0.95rem;
+.table-box {
+  background-color: var(--lightColor);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  margin-top: auto;
 }
 
-.workers-table th,
-.workers-table td {
-  padding: 14px 12px;
-  border: 1px solid #e0e0e0;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
   text-align: left;
 }
 
-.workers-table th {
-  background: var(--primaryColor);
-  color: var(--lightColor);
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-.workers-table tr:nth-child(even) {
-  background-color: var(--grayColor);
-}
-
-.workers-table tr:hover {
-  background-color: #f0f0f0;
-}
-
-.workers-table button {
+th {
   background-color: var(--primaryColor);
   color: var(--lightColor);
+}
+
+tr:hover {
+  background-color: var(--hoverColor);
+}
+
+button.delete-btn {
+  background-color: #e53935;
+  color: white;
   border: none;
-  padding: 6px 12px;
-  margin-right: 5px;
+  padding: 6px 10px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 13px;
+  margin-left: 6px;
 }
 
-.workers-table button:hover {
-  background-color: var(--hoverColor);
-  color: var(--darkcolor);
-}
-
-.delete-btn {
-  background-color: #c0392b !important;
+button.delete-btn:hover {
+  background-color: #c62828;
 }

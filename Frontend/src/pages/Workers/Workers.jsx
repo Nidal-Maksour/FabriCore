@@ -1,226 +1,204 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-const Workers = () => {
+function Workers() {
   const [workers, setWorkers] = useState([]);
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    date_of_birth: "",
-    start_date: "",
-    position: "",
-    email: "",
-    phone: "",
-    status: "Active",
+    first_name: '',
+    last_name: '',
+    date_of_birth: '',
+    start_date: '',
+    position: '',
+    email: '',
+    phone: '',
+    status: 'Active',
   });
+
   const [editingId, setEditingId] = useState(null);
 
-  // Fetch all workers from the server
+  // Fetch all workers
   const fetchWorkers = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/Backend/api/workers.php?action=fetch");
-      if (!response.ok) throw new Error("Failed to fetch workers");
-      const data = await response.json();
-      setWorkers(data);
-    } catch (error) {
-      console.error(error);
-    }
+    const response = await fetch('http://localhost:8000/Backend/api/workers.php');
+    const data = await response.json();
+    setWorkers(data);
   };
 
   useEffect(() => {
     fetchWorkers();
   }, []);
 
-  // Update form data on input change
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Submit form for adding or updating worker
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Determine action URL: add or update
-    const url = "http://localhost:8000/Backend/api/workers.php?action=" + (editingId ? "update" : "add");
+    const action = editingId ? 'update' : 'create';
+    const body = JSON.stringify({ ...formData, action, id: editingId });
 
-    // Prepare data as URL encoded string
-    const params = new URLSearchParams({ ...formData });
-    if (editingId) params.append("worker_id", editingId);
+    await fetch('http://localhost:8000/Backend/api/workers.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body,
+    });
 
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: params.toString(),
-      });
-      if (!response.ok) throw new Error("Failed to add/update worker");
+    setFormData({
+      first_name: '',
+      last_name: '',
+      date_of_birth: '',
+      start_date: '',
+      position: '',
+      email: '',
+      phone: '',
+      status: 'Active',
+    });
 
-      // Refresh workers list and reset form
-      fetchWorkers();
-      setFormData({
-        first_name: "",
-        last_name: "",
-        date_of_birth: "",
-        start_date: "",
-        position: "",
-        email: "",
-        phone: "",
-        status: "Active",
-      });
-      setEditingId(null);
-    } catch (error) {
-      console.error(error);
-    }
+    setEditingId(null);
+    fetchWorkers();
   };
 
-  // Set form data to selected worker for editing
   const handleEdit = (worker) => {
     setFormData(worker);
     setEditingId(worker.worker_id);
   };
 
-  // Delete worker by id
   const handleDelete = async (id) => {
-    try {
-      const params = new URLSearchParams({ worker_id: id });
-      const response = await fetch("http://localhost:8000/Backend/api/workers.php?action=delete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: params.toString(),
-      });
-      if (!response.ok) throw new Error("Failed to delete worker");
-      fetchWorkers();
-    } catch (error) {
-      console.error(error);
-    }
+    await fetch('http://localhost:8000/Backend/api/workers.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id }),
+    });
+    fetchWorkers();
   };
 
-  return (
-    <div className="workers-page">
-      <h1>Workers Management</h1>
-      <form className="worker-form" onSubmit={handleSubmit}>
-        <div className="form-grid">
-          <input
-            name="first_name"
-            placeholder="First Name"
-            value={formData.first_name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="last_name"
-            placeholder="Last Name"
-            value={formData.last_name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="date"
-            name="date_of_birth"
-            value={formData.date_of_birth}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="date"
-            name="start_date"
-            value={formData.start_date}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="position"
-            placeholder="Position"
-            value={formData.position}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="email"
-            placeholder="Email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="phone"
-            placeholder="Phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-          />
-          <select name="status" value={formData.status} onChange={handleChange}>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
-        </div>
-        <div className="form-actions">
-          <button type="submit">{editingId ? "Update Worker" : "Add Worker"}</button>
-          {editingId && (
-            <button
-              type="button"
-              onClick={() => {
-                setEditingId(null);
-                setFormData({
-                  first_name: "",
-                  last_name: "",
-                  date_of_birth: "",
-                  start_date: "",
-                  position: "",
-                  email: "",
-                  phone: "",
-                  status: "Active",
-                });
-              }}
-            >
-              Cancel
-            </button>
-          )}
-        </div>
-      </form>
+  const retiredCount = workers.filter((w) => {
+    const birthYear = new Date(w.date_of_birth).getFullYear();
+    const currentYear = new Date().getFullYear();
+    return currentYear - birthYear >= 65;
+  }).length;
 
-      <table className="workers-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>DOB</th>
-            <th>Start Date</th>
-            <th>Position</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {workers.map((worker) => (
-            <tr key={worker.worker_id}>
-              <td>{worker.worker_id}</td>
-              <td>{worker.first_name}</td>
-              <td>{worker.last_name}</td>
-              <td>{worker.date_of_birth}</td>
-              <td>{worker.start_date}</td>
-              <td>{worker.position}</td>
-              <td>{worker.email}</td>
-              <td>{worker.phone}</td>
-              <td>{worker.status}</td>
-              <td>
-                <button onClick={() => handleEdit(worker)}>Edit</button>
-                <button className="delete-btn" onClick={() => handleDelete(worker.worker_id)}>Delete</button>
-              </td>
+  return (
+    <div className="workers-wrapper">
+      <h1>
+        Manage <span>Workers</span>
+      </h1>
+
+      <div className="workers-wrapper-middle">
+        <div className="stats-container">
+          <div className="stat-box">
+            <h3>Total Workers</h3>
+            <p>{workers.length}</p>
+          </div>
+
+          <div className="stat-box">
+            <h3>Retired Workers</h3>
+            <p>{retiredCount}</p>
+          </div>
+        </div>
+
+        <div className="form-box">
+          <form onSubmit={handleSubmit} className="form-grid">
+            <input
+              name="first_name"
+              placeholder="First Name"
+              value={formData.first_name}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="last_name"
+              placeholder="Last Name"
+              value={formData.last_name}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="date"
+              name="date_of_birth"
+              value={formData.date_of_birth}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="date"
+              name="start_date"
+              value={formData.start_date}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              name="position"
+              placeholder="Position"
+              value={formData.position}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="email"
+              placeholder="Email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              name="phone"
+              placeholder="Phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+            <select name="status" value={formData.status} onChange={handleChange}>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+
+            <button type="submit">{editingId ? 'Update' : 'Add'} Worker</button>
+          </form>
+        </div>
+      </div>
+
+      <div className="table-box">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>DOB</th>
+              <th>Start Date</th>
+              <th>Position</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {workers.map((worker) => (
+              <tr key={worker.worker_id}>
+                <td>
+                  {worker.first_name} {worker.last_name}
+                </td>
+                <td>{worker.date_of_birth}</td>
+                <td>{worker.start_date}</td>
+                <td>{worker.position}</td>
+                <td>{worker.email}</td>
+                <td>{worker.phone}</td>
+                <td>{worker.status}</td>
+                <td>
+                  <button onClick={() => handleEdit(worker)}>Edit</button>
+                  <button onClick={() => handleDelete(worker.worker_id)} className="delete-btn">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-};
+}
 
 export default Workers;
