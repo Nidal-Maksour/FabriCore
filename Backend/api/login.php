@@ -1,59 +1,89 @@
 <?php
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+require_once("../vendor/autoload.php");
+require_once("../config/database.php");
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+// Allow CORS and JSON response headers
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
 
-// Handle OPTIONS preflight request
+// Handle OPTIONS preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// Enable error reporting for debugging (development only)
+// Enable error reporting for debugging
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once("../config/database.php");
+// Get JSON input data
+$input = json_decode(file_get_contents("php://input"), true);
 
-// Read JSON input from request body
-$data = json_decode(file_get_contents("php://input"), true);
+$username = trim($input["username"] ?? "");
+$password = trim($input["password"] ?? "");
 
-$username = $data["username"] ?? "";
-$password = $data["password"] ?? "";
-
-// Validate input
+// Validate input fields
 if (empty($username) || empty($password)) {
     echo json_encode(["success" => false, "message" => "All fields are required."]);
     exit;
 }
 
-// Check database connection
+// Check DB connection
 if (!$conn) {
     http_response_code(500);
     echo json_encode(["success" => false, "message" => "Database connection failed."]);
     exit;
 }
 
-// Prepare SQL statement to find user by email or manager_id
+// Prepare statement to find user by email OR manager_id
 $stmt = $conn->prepare("SELECT * FROM management_team WHERE email = ? OR manager_id = ?");
 $stmt->bind_param("ss", $username, $username);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
-// Check password and respond
-if ($user && $user["password"] === $password) {
-    echo json_encode([
-        "success" => true,
-        "message" => "Login successful.",
-        "redirect" => "/dashboard"
-    ]);
-} else {
-    echo json_encode(["success" => false, "message" => "Invalid email/ID or password."]);
+if (!$user) {
+    // User not found
+    echo json_encode(["success" => false, "message" => "Invalid Email/ID or password."]);
+    exit;
 }
 
-// Close statement and connection
+// Verify password hash
+if (!password_verify($password, $user["password"])) {
+    echo json_encode(["success" => false, "message" => "Invalid Email/ID or password."]);
+    exit;
+}
+
+// Prepare JWT payload
+$payload = [
+    "iss" => "yourdomain.com",
+    "iat" => time(),
+    "exp" => time() + 3600, // token expires in 1 hour
+    "data" => [
+        "id" => $user["manager_id"],
+        "email" => $user["email"],
+        "manager_id" => $user["manager_id"],
+        "role" => $user["role"] ?? "manager"
+    ]
+];
+
+// Encode JWT with secret key from environment variables
+$jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
+
+// Return success response with JWT token and redirect URL
+echo json_encode([
+    "success" => true,
+    "token" => $jwt,
+    "redirect" => "/dashboard"
+]);
+
 $stmt->close();
 $conn->close();
-

@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AppRouter from './Root & Layout/Router';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  return <AppRouter />;
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token); 
+  }, []);
+
+  return (
+    <AppRouter
+      isAuthenticated={isAuthenticated}
+      setIsAuthenticated={setIsAuthenticated}
+    />
+  );
 }
 
 export default App;
