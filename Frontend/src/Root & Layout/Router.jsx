@@ -26,7 +26,7 @@ function AppRouter({ isAuthenticated, setIsAuthenticated }) {
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
 
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-          <Route element={<Layout />}>
+          <Route element={<Layout setIsAuthenticated={setIsAuthenticated} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/workers" element={<Workers />} />
             <Route path="/production" element={<Production />} />
